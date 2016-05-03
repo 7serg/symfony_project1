@@ -1,0 +1,28 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Post:index{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Post:index page</h1>
+
+{% for post in posts %}
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{post.title}}</h3>
+	</div>
+	<div class="panel-body">
+	{% if post.imagePath %}
+	<img src="{{ asset(post.imagePath)}}" width=100 height=100>
+	{% endif %}
+	<div class="pull-right label label-info">{{post.updatedAt|default(post.createdAt)|date('jS F, Y') }}</div>
+		{{post.content}}
+	</div> 
+	<div class="btns">
+		<a href="{{ path('remove_post', {'post': post.id }) }}" class="btn btn-danger">Remove</a>
+		<a href="{{ path('update_post', {'post': post.id }) }}" class="btn btn-warning">Update</a>
+		<a href="{{ path('show_post', {'post': post.id }) }}" class="btn btn-success">Show</a>
+	</div>
+</div>
+    
+{% endfor %}
+{% endblock %}
